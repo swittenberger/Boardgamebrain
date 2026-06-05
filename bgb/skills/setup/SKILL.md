@@ -29,9 +29,10 @@ Use Bash so `~` expands; on Windows it's `%USERPROFILE%\.claude\bgb-games\config
    - Otherwise ask: "Where's your board-game rules folder?" — the folder that holds
      (or will hold) one subfolder per game.
 
-3. **Validate.** Check the path exists (`ls "<path>"` via Bash). If it doesn't,
-   tell the user and offer to create it (`mkdir -p "<path>"`) or to re-enter. Don't
-   save a path that doesn't exist unless the user confirms creating it.
+3. **Validate.** The path must be an **existing folder** — check it with Bash
+   (`ls "<path>"`). If it doesn't exist (or isn't a directory), say so and ask the
+   user to point at an existing folder. Don't create it, and don't save a path that
+   isn't there.
 
 4. **Save.** Write `~/.claude/bgb-games/config.json` with `{ "rulesRoot": "<path>" }`
    (create `~/.claude/bgb-games/` first if missing). Preserve any other keys already
