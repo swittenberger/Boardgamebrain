@@ -1,0 +1,18 @@
+{
+  "name": "boardgamebrain",
+  "owner": {
+    "name": "Sergiu Wittenberger"
+  },
+  "metadata": {
+    "description": "Local marketplace hosting the BoardGame Brain plugin",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "bgb",
+      "source": "./bgb",
+      "description": "BoardGame Brain — board game analysis under /bgb: live move advice, a per-game strategy library, rules answers grounded in your rulebooks, post-game debriefs, and deep research that hunts for exploitable win lines. Tabletop games only.",
+      "version": "1.1.0"
+    }
+  ]
+}
