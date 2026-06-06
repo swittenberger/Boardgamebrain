@@ -19,21 +19,30 @@ skill folder is self-contained (shared references are embedded per skill).
 
 ## Install on the Hermes host
 
-Option A — install all seven through the Hermes installer (one line; keeps
-Skills Guard scanning and `hermes skills check`/`update` tracking):
+The export mirrors the hermes-agent bundled layout: a `bgb` **category** folder
+(`skills/bgb/DESCRIPTION.md` + one folder per skill), so it can sit directly
+next to the agent's built-in skill categories.
+
+Option A — copy the category next to the bundled skills (adjust the target to
+where your instance's built-in skills live, e.g. `/opt/hermes/skills/`). Run
+each line separately:
 
 ```bash
-for s in setup new help move rule insights research; do hermes skills install swittenberger/Boardgamebrain/hermes/skills/bgb-$s; done
+git clone --depth 1 https://github.com/swittenberger/Boardgamebrain /tmp/bgb
+cp -r /tmp/bgb/hermes/skills/bgb /opt/hermes/skills/
+rm -rf /tmp/bgb
 ```
 
-Option A′ — plain file copy (one line, no CLI; bypasses Skills Guard and
-update tracking):
+Restart the agent/session so it re-scans, then check `hermes skills list`.
+
+Option B — install through the Hermes installer (keeps Skills Guard scanning
+and `hermes skills check`/`update` tracking; installs to the user skills dir):
 
 ```bash
-git clone --depth 1 https://github.com/swittenberger/Boardgamebrain /tmp/bgb && cp -r /tmp/bgb/hermes/skills/* ~/.hermes/skills/ && rm -rf /tmp/bgb
+for s in setup new help move rule insights research; do hermes skills install swittenberger/Boardgamebrain/hermes/skills/bgb/bgb-$s; done
 ```
 
-Option B — clone and point `external_dirs` at it (gets updates via `git pull`):
+Option C — clone and point `external_dirs` at it (gets updates via `git pull`):
 
 ```yaml
 # ~/.hermes/config.yaml
@@ -41,11 +50,6 @@ skills:
   external_dirs:
     - /path/to/clone/hermes/skills
 ```
-
-Option C — copy the `skills/bgb-*` folders into `~/.hermes/skills/`.
-
-> For `hermes skills tap add <owner>/<repo>` support, publish the contents of
-> `hermes/skills/` as the `skills/` directory of a dedicated repo.
 
 ## After installing
 

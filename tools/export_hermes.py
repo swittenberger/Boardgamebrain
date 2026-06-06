@@ -22,7 +22,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "bgb"
-OUT = ROOT / "hermes" / "skills"
+# Mirrors the hermes-agent bundled layout: skills/<category>/<skill>/SKILL.md
+# with a DESCRIPTION.md per category.
+OUT = ROOT / "hermes" / "skills" / "bgb"
+
+CATEGORY_DESCRIPTION = """---
+description: BoardGame Brain — board game analysis: live move advice, a per-game strategy library, rules answers grounded in your rulebook PDFs, post-game debriefs, and deep research that hunts for exploitable win lines. Tabletop games only.
+---
+"""
 
 ARGS_NOTE = (
     "> **Arguments:** the text the user typed after the slash command. "
@@ -52,9 +59,11 @@ def main():
         (SRC / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8")
     )["version"]
 
-    if OUT.parent.exists():
+    if OUT.parent.exists():  # wipe hermes/skills/ (keeps hermes/README.md)
         shutil.rmtree(OUT.parent)
     OUT.mkdir(parents=True)
+    (OUT / "DESCRIPTION.md").write_text(CATEGORY_DESCRIPTION,
+                                        encoding="utf-8", newline="\n")
 
     refs = sorted((SRC / "references").glob("*.md"))
     skills = sorted(p for p in (SRC / "skills").iterdir() if p.is_dir())
@@ -83,7 +92,7 @@ def main():
             "metadata:",
             "  hermes:",
             "    tags: [board-games, tabletop, strategy]",
-            "    category: games",
+            "    category: bgb",
             "---",
             "",
         ]

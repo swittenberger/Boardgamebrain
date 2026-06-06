@@ -5,7 +5,7 @@ version: 1.1.1
 metadata:
   hermes:
     tags: [board-games, tabletop, strategy]
-    category: games
+    category: bgb
 ---
 
 # /bgb-research — reconcile theory with reality, and hunt exploits

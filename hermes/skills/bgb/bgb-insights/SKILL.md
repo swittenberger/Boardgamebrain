@@ -5,7 +5,7 @@ version: 1.1.1
 metadata:
   hermes:
     tags: [board-games, tabletop, strategy]
-    category: games
+    category: bgb
 ---
 
 # /bgb-insights — debrief and log how the game went
